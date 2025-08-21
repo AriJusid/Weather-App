@@ -19,21 +19,29 @@ const HourlyForecast = () => {
     };
     getHourly();
   }, []);
-  console.log(hourly)
 
   return(
     <>
+    <div style={{display: 'flex'}}>
     {hourly.map(hour => (
       <div style={styles.hourCard}>
         <span>{hour.dt_txt}</span>,
-        <h6>{hour.main.temp - 273.15}</h6>
+        <h6>{Math.trunc(hour.main.temp - 273.15)}°</h6>
+        <h6>{hour.weather[0].main}</h6>
+        <h6>{hour.weather[0].icon}</h6>
+
       </div>
     ))}
+    </div>
     </>
   )
 }
 
 const styles = {
+  hourCard:{
+    background: '#DBDBDB',
+    marginRight: 20
+  }
 };
 
 export default HourlyForecast;
