@@ -20,15 +20,33 @@ const HourlyForecast = () => {
     getHourly();
   }, []);
 
+  function formatTimeAMPM(dt_txt) {
+    const date = new Date(dt_txt);
+    
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    
+    // Convert to 12-hour format
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    
+    // Only show minutes if they're not zero
+    const minutesStr = `:${minutes.toString().padStart(2, '0')}`;
+    
+    return `${hours}${minutesStr} ${ampm}`;
+  }
+
   return(
     <>
     <div style={{display: 'flex'}}>
     {hourly.map(hour => (
       <div style={styles.hourCard}>
-        <span>{hour.dt_txt}</span>,
-        <h6>{Math.trunc(hour.main.temp - 273.15)}°</h6>
-        <h6>{hour.weather[0].main}</h6>
-        <h6>{hour.weather[0].icon}</h6>
+        <span style={{fontSize:'0.9em', padding:4, fontWeight:500}}>{formatTimeAMPM(hour.dt_txt)}</span>
+        <div style={{background:'#D6D6D6', width:'68px', height:2,     borderRadius: '15px' }}></div>
+        <h6 style={{margin:10}}>{hour.weather[0].icon}</h6>
+        <span style={{fontSize:'0.7em'}}>{hour.weather[0].main}</span>
+        <h2 style={{margin:10}}>{Math.trunc(hour.main.temp - 273.15)}°</h2>
 
       </div>
     ))}
@@ -39,8 +57,14 @@ const HourlyForecast = () => {
 
 const styles = {
   hourCard:{
-    background: '#DBDBDB',
-    marginRight: 20
+    background: '#F5F5F5',
+    marginRight: 20,
+    padding: '7px',
+    width: 70,
+    borderRadius: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center'
   }
 };
 
