@@ -27,11 +27,9 @@ const HourlyForecast = () => {
     const minutes = date.getMinutes();
     const ampm = hours >= 12 ? 'PM' : 'AM';
     
-    // Convert to 12-hour format
     hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
+    hours = hours ? hours : 12;
     
-    // Only show minutes if they're not zero
     const minutesStr = `:${minutes.toString().padStart(2, '0')}`;
     
     return `${hours}${minutesStr} ${ampm}`;

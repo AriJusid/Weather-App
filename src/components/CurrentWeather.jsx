@@ -25,13 +25,16 @@ const CurrentWeather = () => {
     <div style={{display: 'flex'}}>
     
       <div style={styles.currentCard}>
-       <h6>{current.weather ?  current.weather[0].main : ""}</h6> 
-       <h2>{current.weather ?  Math.trunc(current.main.temp - 273.15) + "°" : ""}</h2> 
-       <h6>{current.weather ?  "Feels like: " + Math.trunc(current.main.feels_like - 273.15) + "°": ""}</h6> 
-       <h3>{current.weather ?  current.name : ""}</h3> 
-       <h6>{current.weather ?  current.wind.speed + " m/s": ""}</h6> 
-       <p>{current.weather ?   Math.trunc(current.main.temp_min - 273.15) + "° to " + Math.trunc(current.main.temp_max - 273.15) + "°": ""}</p>
-
+        <div style={{display: 'flex', flexDirection:'column', textAlign: 'left', paddingLeft:20, marginRight:110}}>
+          <h1 style={{margin:0}}>{current.weather ?  Math.trunc(current.main.temp - 273.15) + "°" : ""}</h1> 
+          <span style={{fontSize:'0.7em'}}>{current.weather ?  current.weather[0].main : ""}</span> 
+          <span style={{fontSize:'0.8em', fontWeight:500}}>{current.weather ?  "Feels like: " + Math.trunc(current.main.feels_like - 273.15) + "°": ""}</span> 
+       </div>
+       <div style={{textAlign: 'right'}}>
+          <h3>{current.weather ?  current.name : ""}</h3> 
+          <h6>{current.weather ?  current.wind.speed + " m/s": ""}</h6> 
+          <p>{current.weather ?   Math.trunc(current.main.temp_min - 273.15) + "° to " + Math.trunc(current.main.temp_max - 273.15) + "°": ""}</p>
+       </div>
 
       </div>
     
@@ -48,6 +51,7 @@ const styles = {
     height: 155,
     borderRadius: 20,
     display: 'flex',
+    alignItems: 'center',
 
   }
 };
