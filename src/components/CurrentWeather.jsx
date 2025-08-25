@@ -26,7 +26,10 @@ const CurrentWeather = ({name}) => {
       <div style={styles.currentCard}>
         <div style={{display: 'flex', flexDirection:'column', textAlign: 'left', paddingLeft:20, marginRight:110}}>
           <h1 style={{margin:0}}>{current.weather ?  Math.trunc(current.main.temp - 273.15) + "°" : ""}</h1> 
+          <div style={{display: 'flex', alignItems:'center'}}>
+          <img style={{width:50, margin:0}} src={`https://openweathermap.org/img/wn/${current.weather ?current.weather[0].icon: ""}@2x.png`}></img>
           <span style={{fontSize:'0.7em'}}>{current.weather ?  current.weather[0].main : ""}</span> 
+          </div>
           <span style={{fontSize:'0.8em', fontWeight:500}}>{current.weather ?  "Feels like: " + Math.trunc(current.main.feels_like - 273.15) + "°": ""}</span> 
        </div>
        <div style={{textAlign: 'right'}}>
@@ -47,7 +50,7 @@ const styles = {
     background: '#F5F5F5',
     marginRight: 20,
     width:300,
-    height: 155,
+    height: 185,
     borderRadius: 20,
     display: 'flex',
     alignItems: 'center',

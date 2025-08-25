@@ -32,9 +32,10 @@ const CityWeather = ({name}) => {
 
        </div>
        <div style={{textAlign: 'right', margin:0}}>
-       <p>{current.weather ? current.weather[0].icon: ""}  </p>
+       <img style={{width:55, margin:0}} src={`https://openweathermap.org/img/wn/${current.weather ?current.weather[0].icon: ""}@2x.png`}></img>
 
-          <h2>{current.weather ?  Math.trunc(current.main.temp - 273.15) + "°": ""}</h2> 
+
+          <h2 style={{ margin:0}}>{current.weather ?  Math.trunc(current.main.temp - 273.15) + "°": ""}</h2> 
        </div>
 
       </div>
@@ -48,7 +49,7 @@ const styles = {
   currentCard:{
     background: '#F5F5F5',
     width:300,
-    height: 155,
+    height: 125,
     borderRadius: 20,
     display: 'flex',
     alignItems: 'center',
