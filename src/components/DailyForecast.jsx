@@ -12,7 +12,6 @@ const DailyForecast = () => {
         let response = await axios.get(url.toString(), {
           responseType: 'json',
         });
-        console.log("res", response.data.list)
         setDaily(Array.isArray(response.data.list) ? response.data.list : []);
       } catch (error) {
         console.error('Error al cargar hourly:', error);
@@ -33,11 +32,16 @@ const DailyForecast = () => {
     <h2 style={{textAlign:'left', marginTop:30}}>5-day forecast</h2>
     {daily.map(hour => (
             <div style={styles.dailyCard}>
-        <h4>{getDayAbbreviation(hour.dt_txt)}</h4>
-        <h6>{hour.weather[0].icon}</h6>
-        <h6>{hour.weather[0].main}</h6>
-        <h6>{Math.trunc(hour.main.temp - 273.15)}°</h6>
-        <div style={{background:'#5789FF', width:90, height:6,     borderRadius: '15px' }}></div>
+        <h4 style={{textAlign:'left', marginRight: 0}}>{getDayAbbreviation(hour.dt_txt)}</h4>
+        <div style={styles.main}>
+          <img  style={{width:50}} src={`https://openweathermap.org/img/wn/${hour.weather[0].icon}@2x.png`}></img>
+          <h6 style={{color:'#999999'}}>{hour.weather[0].main}</h6>
+        </div>
+        <div style={styles.main}>
+
+        <h5>{Math.trunc(hour.main.temp - 273.15)}°</h5>
+        <div style={{background:'#5789FF', width:90, height:6,     borderRadius: '15px' , marginLeft:20}}></div>
+        </div>
 
       </div>
     ))}
@@ -52,9 +56,16 @@ const styles = {
     marginRight: 20,
     marginBottom: 30,
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    borderRadius: '15px'
+    borderRadius: '20px',
+    padding: 18,
+    height: 20,
+  },
+  main:{
+    display: 'flex',
+    height: 50,
+    alignItems: 'center',
   }
 };
 

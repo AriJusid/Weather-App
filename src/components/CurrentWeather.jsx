@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 
-const CurrentWeather = () => {
-    
+const CurrentWeather = ({name}) => {
     const [current, setCurrent] = useState([]);
 
     useEffect(() => {
     const getCurrent = async () => {
       try {
-        const url = new URL(`https://api.openweathermap.org/data/2.5/weather?q=Berlin&appid=a27fe226de290113e0ead2fc98ba3ba7&units=metric:celsius`);
+        const url = new URL(`https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=a27fe226de290113e0ead2fc98ba3ba7&units=metric:celsius`);
         let response = await axios.get(url.toString(), {
           responseType: 'json',
         });

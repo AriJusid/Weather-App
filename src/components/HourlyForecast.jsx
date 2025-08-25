@@ -42,7 +42,7 @@ const HourlyForecast = () => {
       <div style={styles.hourCard}>
         <span style={{fontSize:'0.9em', padding:4, fontWeight:500}}>{formatTimeAMPM(hour.dt_txt)}</span>
         <div style={{background:'#D6D6D6', width:'68px', height:2,     borderRadius: '15px' }}></div>
-        <h6 style={{margin:10}}>{hour.weather[0].icon}</h6>
+        <img src={`https://openweathermap.org/img/wn/${hour.weather[0].icon}@2x.png`}></img>
         <span style={{fontSize:'0.7em'}}>{hour.weather[0].main}</span>
         <h2 style={{margin:10}}>{Math.trunc(hour.main.temp - 273.15)}°</h2>
 
