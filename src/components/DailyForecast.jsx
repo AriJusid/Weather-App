@@ -40,7 +40,7 @@ const DailyForecast = () => {
         <div style={styles.main}>
 
         <h5>{Math.trunc(hour.main.temp - 273.15)}°</h5>
-        <div style={{background:'#5789FF', width:90, height:6,     borderRadius: '15px' , marginLeft:20}}></div>
+        <div style={{background:'#828282', width:350, height:6,     borderRadius: '15px' , marginLeft:20}}></div>
         </div>
 
       </div>
