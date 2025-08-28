@@ -24,6 +24,7 @@ function App() {
 
   return (
     <>
+    <div style={styles.header}>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -32,14 +33,16 @@ function App() {
           style={styles.input}
         />
       </form>
-      
-      <button onClick={() => setDark(!dark)}>
+      <div>
+      <button style={styles.btnSection} onClick={() => setDark(!dark)}>
         {dark ? "Light" : "Dark"}
       </button>
 
-      <button onClick={() => setFaren(!faren)}>
+      <button style={styles.btnSection} onClick={() => setFaren(!faren)}>
         {faren ? "°F" : "°C"}
       </button>
+      </div>
+      </div>
 
       <div style={{ display: "flex" }}>
         <div style={{ flexDirection: "column", marginRight: 40 }}>
@@ -65,9 +68,16 @@ const styles = {
     border: "none",
     borderRadius: 50,
     background: "#F5F5F5",
-    marginBottom: 20,
     display: "flex",
   },
+  header:{
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: 30,
+  },
+  btnSection:{
+    marginRight: 20,
+  }
 };
 
 export default App;

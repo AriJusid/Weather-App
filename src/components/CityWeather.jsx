@@ -8,6 +8,11 @@ const CityWeather = ({name, faren}) => {
       return ((celsius * 9) / 5 + 32).toFixed(1);
     }
     
+    function capitalizeFirstLetter(word) {
+      if (!word) return '';
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    }
+    
     useEffect(() => {
     const getCurrent = async () => {
       try {
@@ -28,14 +33,14 @@ const CityWeather = ({name, faren}) => {
   <div style={{display: 'flex'}}>
     {console.log(current)}
     <div style={styles.currentCard}>
-      <div style={{display: 'flex', flexDirection:'column', textAlign: 'left', paddingLeft:20, marginRight:110}}>
+      <div style={{display: 'flex', flexDirection:'column', textAlign: 'left', paddingLeft:20, marginRight:10}}>
         <span style={{fontSize:'0.9em'}}>{current.weather ?  current.sys.country : ""}</span> 
         <h2 style={{margin:0}}>{current.weather ?  current.name : ""}</h2> 
-        <span style={{fontSize:'0.9em'}}>{current.weather ?  current.weather[0].description : ""}</span> 
+        <span style={{fontSize:'0.9em'}}>{current.weather ?  capitalizeFirstLetter(current.weather[0].description) : ""}</span> 
       </div>
-      <div style={{textAlign: 'right', margin:0}}>
+      <div style={{textAlign: 'right', margin:0, display:'flex', paddingRight:20, flexDirection:'column'}}>
         <img style={{width:55, margin:0}} src={`https://openweathermap.org/img/wn/${current.weather ?current.weather[0].icon: ""}@2x.png`} />
-        <h2 style={{ margin:0 }}>
+        <h2 style={{ margin:0, paddingRight:5 }}>
           {
             current && current.main && typeof current.main.temp === "number"
               ? !faren
@@ -59,7 +64,7 @@ const styles = {
     borderRadius: 20,
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-beetwen',
+    justifyContent: 'space-between',
     marginBottom: 25,
 
   }
