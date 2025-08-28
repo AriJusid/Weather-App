@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 
-const DailyForecast = () => {
+const DailyForecast = ({faren}) => {
     
     const [daily, setDaily] = useState([]);
+    
+    function toFahrenheit(celsius) {
+      return ((celsius * 9) / 5 + 32).toFixed(1);
+    }
 
     useEffect(() => {
     const getDaily = async () => {
@@ -29,23 +33,29 @@ const DailyForecast = () => {
 
   return(
     <>
-    <h2 style={{textAlign:'left', marginTop:30}}>5-day forecast</h2>
-    {daily.map(hour => (
-            <div style={styles.dailyCard}>
-        <h4 style={{textAlign:'left', marginRight: 0}}>{getDayAbbreviation(hour.dt_txt)}</h4>
-        <div style={styles.main}>
-          <img  style={{width:50}} src={`https://openweathermap.org/img/wn/${hour.weather[0].icon}@2x.png`}></img>
-          <h6 style={{color:'#999999'}}>{hour.weather[0].main}</h6>
-        </div>
-        <div style={styles.main}>
-
-        <h5>{Math.trunc(hour.main.temp - 273.15)}°</h5>
-        <div style={{background:'#828282', width:350, height:6,     borderRadius: '15px' , marginLeft:20}}></div>
-        </div>
-
+  <h2 style={{textAlign:'left', marginTop:30}}>5-day forecast</h2>
+  {daily.map(hour => (
+    <div style={styles.dailyCard} key={hour.dt_txt}>
+      <h4 style={{textAlign:'left', marginRight: 0}}>{getDayAbbreviation(hour.dt_txt)}</h4>
+      <div style={styles.main}>
+        <img  style={{width:50}} src={`https://openweathermap.org/img/wn/${hour.weather[0].icon}@2x.png`} />
+        <h6 style={{color:'#999999'}}>{hour.weather[0].main}</h6>
       </div>
-    ))}
-    </>
+      <div style={styles.main}>
+        <h5>
+          {
+            typeof hour.main.temp === "number"
+              ? !faren
+                ? Math.trunc(hour.main.temp - 273.15) + "°"
+                : `${Math.trunc(toFahrenheit(hour.main.temp - 273.15))}°F`
+              : ""
+          }
+        </h5>
+        <div style={{background:'#828282', width:350, height:6, borderRadius: '15px' , marginLeft:20}}></div>
+      </div>
+    </div>
+  ))}
+</>
   )
 
 }

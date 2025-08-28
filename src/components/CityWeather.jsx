@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 
-const CityWeather = ({name}) => {
+const CityWeather = ({name, faren}) => {
     const [current, setCurrent] = useState([]);
-
+    
+    function toFahrenheit(celsius) {
+      return ((celsius * 9) / 5 + 32).toFixed(1);
+    }
+    
     useEffect(() => {
     const getCurrent = async () => {
       try {
@@ -21,27 +25,29 @@ const CityWeather = ({name}) => {
 
   return(
     <>
-    <div style={{display: 'flex'}}>
-    {    console.log(current)
-}
-      <div style={styles.currentCard}>
-        <div style={{display: 'flex', flexDirection:'column', textAlign: 'left', paddingLeft:20, marginRight:110}}>
+  <div style={{display: 'flex'}}>
+    {console.log(current)}
+    <div style={styles.currentCard}>
+      <div style={{display: 'flex', flexDirection:'column', textAlign: 'left', paddingLeft:20, marginRight:110}}>
         <span style={{fontSize:'0.9em'}}>{current.weather ?  current.sys.country : ""}</span> 
-           <h2 style={{margin:0}}>{current.weather ?  current.name : ""}</h2> 
-           <span style={{fontSize:'0.9em'}}>{current.weather ?  current.weather[0].description : ""}</span> 
-
-       </div>
-       <div style={{textAlign: 'right', margin:0}}>
-       <img style={{width:55, margin:0}} src={`https://openweathermap.org/img/wn/${current.weather ?current.weather[0].icon: ""}@2x.png`}></img>
-
-
-          <h2 style={{ margin:0}}>{current.weather ?  Math.trunc(current.main.temp - 273.15) + "°": ""}</h2> 
-       </div>
-
+        <h2 style={{margin:0}}>{current.weather ?  current.name : ""}</h2> 
+        <span style={{fontSize:'0.9em'}}>{current.weather ?  current.weather[0].description : ""}</span> 
       </div>
-    
+      <div style={{textAlign: 'right', margin:0}}>
+        <img style={{width:55, margin:0}} src={`https://openweathermap.org/img/wn/${current.weather ?current.weather[0].icon: ""}@2x.png`} />
+        <h2 style={{ margin:0 }}>
+          {
+            current && current.main && typeof current.main.temp === "number"
+              ? !faren
+                ? Math.trunc(current.main.temp - 273.15) + "°"
+                : `${Math.trunc(toFahrenheit(current.main.temp - 273.15))}°F`
+              : ""
+          }
+        </h2>
+      </div>
     </div>
-    </>
+  </div>
+</>
   )
 }
 

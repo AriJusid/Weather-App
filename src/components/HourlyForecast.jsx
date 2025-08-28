@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 
-const HourlyForecast = () => {
+const HourlyForecast = ({faren}) => {
     
     const [hourly, setHourly] = useState([]);
-
+    function toFahrenheit(celsius) {
+      return ((celsius * 9) / 5 + 32).toFixed(1);
+    }
     useEffect(() => {
     const getHourly = async () => {
       try {
@@ -37,18 +39,25 @@ const HourlyForecast = () => {
 
   return(
     <>
-    <div style={{display: 'flex'}}>
-    {hourly.map(hour => (
-      <div style={styles.hourCard}>
-        <span style={{fontSize:'0.9em', padding:4, fontWeight:500}}>{formatTimeAMPM(hour.dt_txt)}</span>
-        <div style={{background:'#D6D6D6', width:'68px', height:2,     borderRadius: '15px' }}></div>
-        <img src={`https://openweathermap.org/img/wn/${hour.weather[0].icon}@2x.png`}></img>
-        <span style={{fontSize:'0.7em'}}>{hour.weather[0].main}</span>
-        <h2 style={{margin:10}}>{Math.trunc(hour.main.temp - 273.15)}°</h2>
-
+      <div style={{display: 'flex'}}>
+        {hourly.map(hour => (
+          <div style={styles.hourCard} key={hour.dt_txt}>
+            <span style={{fontSize:'0.9em', padding:4, fontWeight:500}}>{formatTimeAMPM(hour.dt_txt)}</span>
+            <div style={{background:'#D6D6D6', width:'68px', height:2, borderRadius: '15px' }}></div>
+            <img src={`https://openweathermap.org/img/wn/${hour.weather[0].icon}@2x.png`} />
+            <span style={{fontSize:'0.7em'}}>{hour.weather[0].main}</span>
+            <h2 style={{margin:10}}>
+              {
+                typeof hour.main.temp === "number"
+                  ? !faren
+                    ? Math.trunc(hour.main.temp - 273.15) + "°"
+                    : `${Math.trunc(toFahrenheit(hour.main.temp - 273.15))}°F`
+                  : ""
+              }
+            </h2>
+          </div>
+        ))}
       </div>
-    ))}
-    </div>
     </>
   )
 }
