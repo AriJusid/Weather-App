@@ -58,7 +58,7 @@ const CityWeather = ({name, faren}) => {
 
 const styles = {
   currentCard:{
-    background: '#F5F5F5',
+    background: '#FAFAFA',
     width:300,
     height: 125,
     borderRadius: 20,

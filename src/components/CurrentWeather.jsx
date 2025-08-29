@@ -69,7 +69,7 @@ const CurrentWeather = ({name, faren}) => {
 
 const styles = {
   currentCard:{
-    background: '#F5F5F5',
+    background: '#FAFAFA',
     marginRight: 20,
     width:300,
     height: 185,

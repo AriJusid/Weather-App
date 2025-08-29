@@ -64,7 +64,7 @@ const HourlyForecast = ({faren}) => {
 
 const styles = {
   hourCard:{
-    background: '#F5F5F5',
+    background: '#FAFAFA',
     marginRight: 20,
     padding: '7px',
     width: 70,

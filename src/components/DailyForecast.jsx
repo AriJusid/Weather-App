@@ -62,7 +62,7 @@ const DailyForecast = ({faren}) => {
 
 const styles = {
   dailyCard:{
-    background: '#F5F5F5',
+    background: '#FAFAFA',
     marginRight: 20,
     marginBottom: 30,
     display: 'flex',
