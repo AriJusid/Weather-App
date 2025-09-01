@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 
-const CityWeather = ({name, faren}) => {
+const CityWeather = ({name, faren, dark}) => {
     const [current, setCurrent] = useState([]);
     
     function toFahrenheit(celsius) {
@@ -30,6 +30,30 @@ const CityWeather = ({name, faren}) => {
 
   return(
     <>
+
+    {dark? <div style={{display: 'flex'}}>
+    {console.log(current)}
+    <div style={stylesDark.currentCard}>
+      <div style={{display: 'flex', flexDirection:'column', textAlign: 'left', paddingLeft:20, marginRight:10}}>
+        <span style={{fontSize:'0.9em'}}>{current.weather ?  current.sys.country : ""}</span> 
+        <h2 style={{margin:0}}>{current.weather ?  current.name : ""}</h2> 
+        <span style={{fontSize:'0.9em'}}>{current.weather ?  capitalizeFirstLetter(current.weather[0].description) : ""}</span> 
+      </div>
+      <div style={{textAlign: 'right', margin:0, display:'flex', paddingRight:20, flexDirection:'column'}}>
+        <img style={{width:55, margin:0}} src={`https://openweathermap.org/img/wn/${current.weather ?current.weather[0].icon: ""}@2x.png`} />
+        <h2 style={{ margin:0, paddingRight:5 }}>
+          {
+            current && current.main && typeof current.main.temp === "number"
+              ? !faren
+                ? Math.trunc(current.main.temp - 273.15) + "°"
+                : `${Math.trunc(toFahrenheit(current.main.temp - 273.15))}°F`
+              : ""
+          }
+        </h2>
+      </div>
+    </div>
+  </div> :
+  
   <div style={{display: 'flex'}}>
     {console.log(current)}
     <div style={styles.currentCard}>
@@ -51,7 +75,8 @@ const CityWeather = ({name, faren}) => {
         </h2>
       </div>
     </div>
-  </div>
+  </div>}
+  
 </>
   )
 }
@@ -62,6 +87,22 @@ const styles = {
     width:300,
     height: 125,
     borderRadius: 20,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 25,
+
+  }
+};
+
+const stylesDark = {
+
+  currentCard:{
+    background: '#283C4F',
+    width:300,
+    height: 125,
+    borderRadius: 20,
+    color: '#FFFFFF',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
