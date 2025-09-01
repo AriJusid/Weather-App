@@ -12,7 +12,7 @@ const DailyForecast = ({faren}) => {
     useEffect(() => {
     const getDaily = async () => {
       try {
-        const url = new URL(`https://api.openweathermap.org/data/2.5/forecast?q=Berlin&appid=a27fe226de290113e0ead2fc98ba3ba7&cnt=5`);
+        const url = new URL(`https://api.openweathermap.org/data/2.5/forecast?q=Berlin&appid=a27fe226de290113e0ead2fc98ba3ba7&cnt=40`);
         let response = await axios.get(url.toString(), {
           responseType: 'json',
         });
@@ -33,8 +33,9 @@ const DailyForecast = ({faren}) => {
 
   return(
     <>
+    {console.log(daily.length)}
   <h2 style={{textAlign:'left', marginTop:30}}>5-day forecast</h2>
-  {daily.map(hour => (
+  {daily.filter((_, idx) => idx % 8 === 0).map(hour => (
     <div style={styles.dailyCard} key={hour.dt_txt}>
       <h4 style={{textAlign:'left', marginRight: 0}}>{getDayAbbreviation(hour.dt_txt)}</h4>
       <div style={styles.main}>
